@@ -1,0 +1,12 @@
+<div class="lyric">
+  <h1 class="lyric__title"><%= @song.title %></h1>
+
+  <div class="js-lyric-controls lyric__controls is-hidden">
+    <button data-action="show-chords" class="is-hidden">Mostrar acordes</button>
+    <button data-action="hide-chords" class="is-hidden">Ocultar acordes</button>
+  </div>
+
+  <div class="js-lyric">
+    <%= @song.body %>
+  </div>
+</div>

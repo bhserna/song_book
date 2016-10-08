@@ -1,0 +1,58 @@
+@charset "utf-8";
+
+@import "normalize";
+@import "bourbon";
+@import "base/base";
+@import "neat";
+
+@import "refills/sliding_panel";
+@import "refills/navigation";
+
+
+.is-hidden {
+  display: none !important;
+}
+
+.pull-right {
+  float: right;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.lyric {
+  padding: 1em;
+}
+
+.lyric__title {
+  font-size: 1.5em;
+  margin-bottom: 0;
+}
+
+.lyric__chord {
+  position: relative;
+  bottom: 1em;
+  color: blue;
+  width: 0;
+  display: inline-block;
+}
+
+.lyric__block--with-chords {
+  line-height: 2.5;
+}
+
+.lyric__controls {
+  padding-top: 1em;
+}
+
+.lyrics-list {
+  > li {
+    border-bottom: $base-border;
+  }
+
+  > li > a {
+    display: block;
+    padding: 1em;
+  }
+}
