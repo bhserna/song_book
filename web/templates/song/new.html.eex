@@ -1,0 +1,19 @@
+<div class="page">
+  <h1>Agregar canción</h1>
+
+  <%= form_tag song_path(@conn, :create) do %>
+    <p style="max-width: 500px;">
+    <%= label :song, :name, "Nombre" %>
+    <%= text_input :song, :name, value: @form.name || "" %>
+    </p>
+
+    <p style="max-width: 500px;">
+    <%= label :song, :body, "Letra" %>
+    <%= textarea :song, :body, rows: "15", value: @form.body || "" %>
+    </p>
+
+    <p>
+    <%= submit "Agregar" %>
+    </p>
+  <% end %>
+</div>

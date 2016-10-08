@@ -27,4 +27,20 @@ Hey hey hey...
   def show(conn, _params) do
     render conn, "show.html", song: @song
   end
+
+  def new(conn, _params) do
+    form = SongBook.AddSong.add_song_form
+    render conn, "new.html", form: form
+  end
+
+  def create(conn, %{"song" => %{"name" => name, "body" => body}}) do
+    case SongBook.AddSong.add_song(:fake, name, body) do
+      {:ok, song_id} ->
+        redirect conn, to: song_path(conn, :show, song_id)
+
+      {:error, errors} ->
+        form = SongBook.AddSong.add_song_form
+        render conn, "new.html", form: form
+    end
+  end
 end

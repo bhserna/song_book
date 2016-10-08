@@ -20,6 +20,7 @@
           <ul id="js-navigation-menu" class="navigation-menu show">
             <li class="nav-link">
             <%= if logged_in?(@conn) do %>
+              <%= link "Agregar canción", to: song_path(@conn, :new) %>
               <%= link "Salir", to: session_path(@conn, :destroy) %>
             <% else %>
               <%= link "Login", to: session_path(@conn, :new) %>
