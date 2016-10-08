@@ -4,7 +4,7 @@ Este es un programa para llevar un cancionero. Esta diseñado para ser
 usado por el coro de mi parroquia, pero tal vez se pueda usar para otros
 coros si así lo desean.
 
-Este programa permite:
+Este programa permitirá:
 
 **A todo usuario...**
 
