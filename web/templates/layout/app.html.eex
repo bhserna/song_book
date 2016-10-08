@@ -18,13 +18,31 @@
         <a href="javascript:void(0)" class="navigation-menu-button" id="js-mobile-menu">Menu</a>
         <nav role="navigation">
           <ul id="js-navigation-menu" class="navigation-menu show">
-            <li class="nav-link"><a href="javascript:void(0)">Login</a></li>
+            <li class="nav-link">
+            <%= if logged_in?(@conn) do %>
+              <%= link "Salir", to: session_path(@conn, :destroy) %>
+            <% else %>
+              <%= link "Login", to: session_path(@conn, :new) %>
+            <% end %>
+            </li>
           </ul>
         </nav>
       </div>
     </header>
 
     <div id="main">
+      <%= if get_flash(@conn, :info) do %>
+        <div class="flash-notice">
+          <span><%= get_flash(@conn, :info) %></span>
+        </div>
+      <% end %>
+
+      <%= if get_flash(@conn, :error) do %>
+        <div class="flash-error">
+          <span><%= get_flash(@conn, :error) %></span>
+        </div>
+      <% end %>
+
       <%= render @view_module, @view_template, assigns %>
     </div>
 

@@ -1,3 +1,19 @@
+defmodule SongBookWeb.AppState do
+  alias Plug.Conn
+
+  def logged_in?(conn) do
+    current_state(conn).logged_in?
+  end
+
+  def current_state(conn) do
+    %SongBook.State{logged_in?: Conn.get_session(conn, :logged_in)}
+  end
+
+  def update_state(conn, state) do
+    Conn.put_session(conn, :logged_in, state.logged_in?)
+  end
+end
+
 defmodule SongBookWeb.Web do
   @moduledoc """
   A module that keeps using definitions for controllers,
@@ -36,6 +52,7 @@ defmodule SongBookWeb.Web do
 
       import SongBookWeb.Router.Helpers
       import SongBookWeb.Gettext
+      import SongBookWeb.AppState
     end
   end
 
@@ -52,6 +69,7 @@ defmodule SongBookWeb.Web do
       import SongBookWeb.Router.Helpers
       import SongBookWeb.ErrorHelpers
       import SongBookWeb.Gettext
+      import SongBookWeb.AppState
     end
   end
 

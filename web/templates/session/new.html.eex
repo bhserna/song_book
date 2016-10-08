@@ -1,0 +1,16 @@
+<div class="page">
+  <h1>Login</h1>
+
+  <p>Escribe la contraseña para iniciar sesión.</p>
+
+  <%= form_tag session_path(@conn, :create) do %>
+    <p style="max-width: 300px;">
+    <%= label :login, :password, "Contraseña" %>
+    <%= password_input :login, :password %>
+    </p>
+
+    <p>
+    <%= submit "Enviar" %>
+    </p>
+  <% end %>
+</div>

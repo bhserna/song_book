@@ -7,6 +7,7 @@
 
 @import "refills/sliding_panel";
 @import "refills/navigation";
+@import "refills/flash";
 
 
 .is-hidden {
@@ -19,6 +20,14 @@
 
 .text-right {
   text-align: right;
+}
+
+.page {
+  padding: 1em;
+
+  > h1 {
+    font-size: 1.5em;
+  }
 }
 
 .lyric {

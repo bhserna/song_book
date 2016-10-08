@@ -18,6 +18,9 @@ defmodule SongBookWeb.Router do
 
     get "/", PageController, :index
     get "/letras/:slug", SongController, :show
+    get "/login", SessionController, :new
+    post "/login", SessionController, :create
+    post "/logout", SessionController, :destroy
   end
 
   # Other scopes may use custom stacks.
