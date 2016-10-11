@@ -1,3 +1,0 @@
-<ul class="lyrics-list">
-  <li><a href="<%= song_path(@conn, :show, @song.slug) %>"><%= @song.title %></a></li>
-</ul>

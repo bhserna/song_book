@@ -4,6 +4,7 @@ defmodule WatchSongTest do
 
   defmodule StoreStub do
     alias SongBook.SongRecord
+    @behaviour SongBook.WatchSong.SongStore
 
     @records [
       %SongRecord{id: 1, name: "Las mañanitas", body: "Estas son..."},

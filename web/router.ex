@@ -16,13 +16,13 @@ defmodule SongBookWeb.Router do
   scope "/", SongBookWeb do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
     get "/login", SessionController, :new
     post "/login", SessionController, :create
     post "/logout", SessionController, :destroy
 
+    get "/", SongController, :index
     get "/canciones/nueva", SongController, :new
-    get "/canciones/:slug", SongController, :show
+    get "/canciones/:id", SongController, :show
     post "/canciones", SongController, :create
   end
 

@@ -5,6 +5,8 @@ defmodule AddSongTest do
   import SongBook.Auth, only: [can?: 2]
 
   defmodule StoreSpy do
+    @behaviour SongBook.AddSong.SongStore
+
     def insert(record) do
       send self, {__MODULE__, :insert, record}
       {:ok, record |> Map.put(:id, "1234")}
@@ -25,22 +27,26 @@ defmodule AddSongTest do
 
   test "it has a form with the name of the song" do
     form = add_song_form
-    assert form.name == nil
+    assert form.name == ""
   end
 
   test "it has a form with the body of the song" do
     form = add_song_form
-    assert form.body == nil
+    assert form.body == ""
   end
 
   test "it returns an error when there is no name" do
-    {:error, errors} = add_song(nil, "Estas son...")
-    assert errors == [name: "El nombre no puede estar en blanco"]
+    {:error, form} = add_song(nil, "Estas son...")
+    assert form.errors == [name: "El nombre no puede estar en blanco"]
+    assert form.name == ""
+    assert form.body == "Estas son..."
   end
 
   test "it returns an error when there is no description" do
-    {:error, errors} = add_song("Las manañitas", nil)
-    assert errors == [body: "La letra no puede estar en blanco"]
+    {:error, form} = add_song("Las manañitas", nil)
+    assert form.errors == [body: "La letra no puede estar en blanco"]
+    assert form.name == "Las manañitas"
+    assert form.body == ""
   end
 
   test "asks the store to create the song" do

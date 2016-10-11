@@ -1,31 +1,16 @@
 defmodule SongBookWeb.SongController do
   use SongBookWeb.Web, :controller
 
-  @song %{
-    title: "Aire navideño",
-    slug: "aire-navideño",
-    body: """
-Hay un aire navideño ALELUYA
-Y los niños hacen bailes ALELUYA
-Sus cantos brindan al recién nacido Rey
-Amor y alegría nos vino a traer
+  plug :scrub_params, "song" when action in [:create]
 
-Hey hey hey la la la la
-Hey hey hey ALELUYA
-Hey hey hey la la la la
-Hey hey heh ALELUYA
+  def show(conn, %{"id" => id}) do
+    song = SongBook.WatchSong.watch_song(SongBookWeb.Song, id)
+    render conn, "show.html", song: song
+  end
 
-Juntemos las manos ALELUYA
-A su amor cantemos ALELUYA
-Los niños felices bailan para el niño Rey
-Amor y alegría nos vino a traer
-
-Hey hey hey... 
-    """
-  }
-
-  def show(conn, _params) do
-    render conn, "show.html", song: @song
+  def index(conn, _params) do
+    songs = SongBook.WatchAllSongs.all_songs(SongBookWeb.Song)
+    render conn, "index.html", songs: songs
   end
 
   def new(conn, _params) do
@@ -34,12 +19,11 @@ Hey hey hey...
   end
 
   def create(conn, %{"song" => %{"name" => name, "body" => body}}) do
-    case SongBook.AddSong.add_song(:fake, name, body) do
+    case SongBook.AddSong.add_song(SongBookWeb.Song, name, body) do
       {:ok, song_id} ->
         redirect conn, to: song_path(conn, :show, song_id)
 
-      {:error, errors} ->
-        form = SongBook.AddSong.add_song_form
+      {:error, form} ->
         render conn, "new.html", form: form
     end
   end
