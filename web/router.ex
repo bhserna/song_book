@@ -21,9 +21,7 @@ defmodule SongBookWeb.Router do
     post "/logout", SessionController, :destroy
 
     get "/", SongController, :index
-    get "/canciones/nueva", SongController, :new
-    get "/canciones/:id", SongController, :show
-    post "/canciones", SongController, :create
+    resources "/canciones", SongController, as: :song, except: [:index]
   end
 
   # Other scopes may use custom stacks.

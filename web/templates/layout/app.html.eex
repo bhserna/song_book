@@ -18,12 +18,17 @@
         <a href="javascript:void(0)" class="navigation-menu-button" id="js-mobile-menu">Menu</a>
         <nav role="navigation">
           <ul id="js-navigation-menu" class="navigation-menu show">
-            <li class="nav-link">
             <%= if logged_in?(@conn) do %>
+              <li class="nav-link">
               <%= link "Agregar canción", to: song_path(@conn, :new) %>
+              </li>
+              <li class="nav-link">
               <%= link "Salir", to: session_path(@conn, :destroy) %>
+              </li>
             <% else %>
+              <li class="nav-link">
               <%= link "Login", to: session_path(@conn, :new) %>
+              </li>
             <% end %>
             </li>
           </ul>

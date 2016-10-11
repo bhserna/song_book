@@ -1,0 +1,21 @@
+<div class="page">
+  <h1>Editar canción</h1>
+
+  <%= form_tag song_path(@conn, :update, @song_id), method: :patch do %>
+    <p style="max-width: 500px;">
+    <%= label :song, :name, "Nombre" %>
+    <%= text_input :song, :name, value: @form.name %>
+    <span><%= @form.errors[:name] %></span>
+    </p>
+
+    <p style="max-width: 500px;">
+    <%= label :song, :body, "Letra" %>
+    <%= textarea :song, :body, rows: "15", value: @form.body %>
+    <span><%= @form.errors[:body] %></span>
+    </p>
+
+    <p>
+    <%= submit "Actualizar" %>
+    </p>
+  <% end %>
+</div>

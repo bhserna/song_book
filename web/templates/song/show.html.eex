@@ -6,6 +6,12 @@
     <button data-action="hide-chords" class="is-hidden">Ocultar acordes</button>
   </div>
 
+  <%= if logged_in?(@conn) do %>
+    <div class="lyric__controls">
+      <%= link "Editar", to: song_path(@conn, :edit, @song.id) %>
+    </div>
+  <% end %>
+
   <div class="js-lyric">
     <%= @song.body %>
   </div>
