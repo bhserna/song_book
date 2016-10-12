@@ -32,10 +32,10 @@ defmodule LoginTest do
   end
 
   def login_form do
-    SongBook.Login.login_form
+    SongBook.Session.login_form
   end
 
   def login_with_password(password) do
-    SongBook.Login.login_with_password(@config, @initial_state, password)
+    SongBook.Session.login_with_password(@config, @initial_state, password)
   end
 end

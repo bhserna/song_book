@@ -8,9 +8,7 @@ defmodule SongBookWeb.SessionController do
   end
 
   def create(conn, %{"login" => %{"password" => password}}) do
-    require Logger
-
-    case SongBook.Login.login_with_password(@config, current_state(conn), password) do
+    case SongBook.Session.login_with_password(@config, current_state(conn), password) do
       {:ok, state} ->
         conn
         |> update_state(state)
@@ -22,5 +20,14 @@ defmodule SongBookWeb.SessionController do
         |> put_flash(:error, error)
         |> redirect(to: session_path(conn, :new))
     end
+  end
+
+  def destroy(conn, _params) do
+    state = SongBook.Session.logout(current_state(conn))
+
+    conn
+    |> update_state(state)
+    |> put_flash(:info, "Has terminado sesión exitosamente")
+    |> redirect(to: "/")
   end
 end

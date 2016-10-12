@@ -18,7 +18,7 @@ defmodule SongBookWeb.Router do
 
     get "/login", SessionController, :new
     post "/login", SessionController, :create
-    post "/logout", SessionController, :destroy
+    delete "/logout", SessionController, :destroy
 
     get "/", SongController, :index
     resources "/canciones", SongController, as: :song, except: [:index]

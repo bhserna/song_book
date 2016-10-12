@@ -23,7 +23,7 @@
               <%= link "Agregar canción", to: song_path(@conn, :new) %>
               </li>
               <li class="nav-link">
-              <%= link "Salir", to: session_path(@conn, :destroy) %>
+              <%= link "Salir", to: session_path(@conn, :destroy), method: :delete, form: [style: "display: inline"] %>
               </li>
             <% else %>
               <li class="nav-link">

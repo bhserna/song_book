@@ -17,13 +17,13 @@ defmodule SongBook do
     end
   end
 
-  defmodule Login do
-    defmodule Form do
+  defmodule Session do
+    defmodule LoginForm do
       defstruct [:password]
     end
 
     def login_form do
-      struct Form
+      struct LoginForm
     end
 
     def login_with_password(config, state, password) do
@@ -32,6 +32,10 @@ defmodule SongBook do
       else
         {:error, "El password no es correcto"}
       end
+    end
+
+    def logout(state) do
+      %{state | logged_in?: false}
     end
   end
 
