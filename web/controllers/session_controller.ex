@@ -1,14 +1,12 @@
 defmodule SongBookWeb.SessionController do
   use SongBookWeb.Web, :controller
 
-  @config [password: "1234secret"]
-
   def new(conn, _params) do
     render conn, "new.html"
   end
 
   def create(conn, %{"login" => %{"password" => password}}) do
-    case SongBook.Session.login_with_password(@config, current_state(conn), password) do
+    case SongBook.Session.login_with_password(config, current_state(conn), password) do
       {:ok, state} ->
         conn
         |> update_state(state)
@@ -29,5 +27,9 @@ defmodule SongBookWeb.SessionController do
     |> update_state(state)
     |> put_flash(:info, "Has terminado sesión exitosamente")
     |> redirect(to: "/")
+  end
+
+  defp config do
+    [password: System.get_env("password")]
   end
 end
