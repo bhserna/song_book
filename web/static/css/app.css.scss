@@ -36,7 +36,6 @@
 
 .lyric__title {
   font-size: 1.5em;
-  margin-bottom: 0;
 }
 
 .lyric__chord {
@@ -64,4 +63,47 @@
     display: block;
     padding: 1em;
   }
+}
+
+
+// Song
+
+.song-phrase {
+  border: none;
+  padding: 0 0 0.3em;
+  margin: 0;
+  margin-right: 0.3em;
+  border-radius: 0;
+  line-height: 100%;
+  display: inline-block;
+  white-space: pre;
+  word-break: normal;
+  word-wrap: normal;
+}
+
+.song-join {
+  margin-left: -0.3em;
+}
+
+.song-chord {
+  padding-right: 0.3em;
+  color: blue;
+}
+
+.song-mute {
+  color: #ccc;
+}
+
+.song-no-lyric .song-chord {
+  padding-right: 0;
+}
+
+.song-section-header {
+  color: #ccc;
+  text-transform: small-caps;
+  border-bottom: 1px solid #eee;
+}
+
+.song-section {
+  margin-bottom: 1.5em;
 }

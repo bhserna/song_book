@@ -71,6 +71,5 @@ App.onAction "show-chords", -> App.render chords: true
 App.onAction "hide-chords", -> App.render chords: false
 
 $ ->
-  $(".js-lyric").each ->
-    App.init $(this), $(".js-lyric-controls")
-    App.render chords: false
+  $el = $(".js-lyric")
+  $el.html(Content.render(Parser.parseString($el.text())))

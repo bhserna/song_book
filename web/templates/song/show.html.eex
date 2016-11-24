@@ -1,16 +1,16 @@
 <div class="lyric">
+  <%= if logged_in?(@conn) do %>
+    <div class="pull-right">
+      <%= link "Editar", to: song_path(@conn, :edit, @song.id) %>
+    </div>
+  <% end %>
+
   <h1 class="lyric__title"><%= @song.name %></h1>
 
   <div class="js-lyric-controls lyric__controls is-hidden">
     <button data-action="show-chords" class="is-hidden">Mostrar acordes</button>
     <button data-action="hide-chords" class="is-hidden">Ocultar acordes</button>
   </div>
-
-  <%= if logged_in?(@conn) do %>
-    <div class="lyric__controls">
-      <%= link "Editar", to: song_path(@conn, :edit, @song.id) %>
-    </div>
-  <% end %>
 
   <div class="js-lyric">
     <%= @song.body %>

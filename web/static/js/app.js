@@ -21,5 +21,7 @@ import "phoenix_html";
 import "./refills/sliding_panel";
 import "./refills/navigation";
 import "./lyrics";
+import "./parser";
+import "./content";
 
 // import socket from "./socket"
