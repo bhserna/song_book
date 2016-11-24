@@ -20,7 +20,7 @@ import "phoenix_html";
 
 import "./refills/sliding_panel";
 import "./refills/navigation";
-import "./lyrics";
+import "./song";
 import "./parser";
 import "./content";
 
