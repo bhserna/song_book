@@ -5,7 +5,7 @@ props =
   playback: true
   currentChordId: null
 
-switches =
+defaultSwitches =
   showChords: false
   showLyrics: true
   showFade: true
@@ -15,20 +15,20 @@ switches =
 classNames = (config) ->
   (className for className, isActive of config when isActive).join " "
 
-renderSectionHeader = (section) ->
+renderSectionHeader = (switches, section) ->
   if switches.showSections
     """<div class="song-section-header">#{section.section}</div>"""
 
-renderLine = (song, line) ->
-  """<div id="line_#{line.lineId}">#{_.map(line, (phrase) -> renderPhrase(song, phrase)).join("")}</div>"""
+renderLine = (song, switches, line) ->
+  """<div id="line_#{line.lineId}">#{_.map(line, (phrase) -> renderPhrase(song, switches, phrase)).join("")}</div>"""
 
-renderLyric = (phrase) ->
+renderLyric = (switches, phrase) ->
   lyric = S(phrase.lyric).trim().s
 
   if (lyric or switches.showChords) and switches.showLyrics
     """<div class="song-lyric">#{lyric or ' '}</div>"""
 
-renderChord = (song, phrase) ->
+renderChord = (song, switches, phrase) ->
   hasAlts = song.alts[phrase.chord]? and phrase.exception and switches.showAlternates
   chord = phrase.chord
 
@@ -44,9 +44,9 @@ renderChord = (song, phrase) ->
   else
     ""
 
-renderPhrase = (song, phrase) ->
-  lyric = renderLyric phrase
-  chord = renderChord song, phrase
+renderPhrase = (song, switches, phrase) ->
+  lyric = renderLyric switches, phrase
+  chord = renderChord song, switches, phrase
 
   return unless lyric or chord
 
@@ -57,17 +57,18 @@ renderPhrase = (song, phrase) ->
 
   """<div class="#{classes}">#{chord}#{lyric}</div>"""
 
-renderContent = (song) ->
+renderContent = (song, switches) ->
   _.map(song.content, (section) =>
     """
     <div>
-      #{renderSectionHeader(section)}
-      <div class="song-section">#{_.map(section.lines, (line) -> renderLine(song, line)).join("")}</div>
+      #{renderSectionHeader(switches, section)}
+      <div class="song-section">#{_.map(section.lines, (line) -> renderLine(song, switches, line)).join("")}</div>
     </div>
     """
     ).join("")
 
-render = (song) ->
-  """<div>#{renderContent(song)}</div>"""
+render = (song, opts) ->
+  switches = _.defaults(opts, defaultSwitches)
+  """<div>#{renderContent(song, switches)}</div>"""
 
 window.Content = module.exports = {render}

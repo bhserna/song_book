@@ -50,10 +50,6 @@
   line-height: 2.5;
 }
 
-.lyric__controls {
-  padding-top: 1em;
-}
-
 .lyrics-list {
   > li {
     border-bottom: $base-border;
@@ -102,6 +98,7 @@
   color: #ccc;
   text-transform: small-caps;
   border-bottom: 1px solid #eee;
+  margin-bottom: 0.5em;
 }
 
 .song-section {

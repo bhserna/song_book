@@ -41,16 +41,18 @@ Lyrics =
   replaceChord: (match, _openBracket, chord, _closingBracked, offset, _string) ->
     "<span class='lyric__chord'>#{chord}</span>"
 
-App =
+window.App =
   init: (@$el, @$controls, @source = @$el.text()) ->
 
   render: (opts) ->
-    @$el.html Lyrics.renderHtml(@source, opts)
+    @song = Parser.parseString(@source)
+    @$el.html Content.render(@song, opts)
+    @$el.removeClass("is-hidden")
 
-    if Lyrics.hasChords(@source)
+    if @song.count.chords
       @$controls.removeClass("is-hidden")
 
-      if opts.chords
+      if opts.showChords
         @showControl "hide-chords"
         @hideControl "show-chords"
 
@@ -67,9 +69,11 @@ App =
   onAction: (name, fun) ->
     $(document).on "click", ".js-lyric-controls [data-action='#{name}']", fun
 
-App.onAction "show-chords", -> App.render chords: true
-App.onAction "hide-chords", -> App.render chords: false
+App.onAction "show-chords", -> App.render showChords: true
+App.onAction "hide-chords", -> App.render showChords: false
 
 $ ->
   $el = $(".js-lyric")
-  $el.html(Content.render(Parser.parseString($el.text())))
+  $controls = $(".js-lyric-controls")
+  App.init $el, $controls
+  App.render(showChords: false)
