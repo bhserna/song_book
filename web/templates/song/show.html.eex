@@ -1,12 +1,13 @@
 <div class="lyric">
-
-  <div class="js-lyric-controls pull-right is-hidden">
+  <div class="pull-right">
     <%= if logged_in?(@conn) do %>
       <%= link "Editar", to: song_path(@conn, :edit, @song.id), style: "margin-left: 10px; margin-right: 10px" %>
     <% end %>
 
-    <button data-action="show-chords" class="is-hidden">Mostrar acordes</button>
-    <button data-action="hide-chords" class="is-hidden">Ocultar acordes</button>
+    <div class="js-lyric-controls is-hidden">
+      <button data-action="show-chords" class="is-hidden">Mostrar acordes</button>
+      <button data-action="hide-chords" class="is-hidden">Ocultar acordes</button>
+    </div>
   </div>
 
 
