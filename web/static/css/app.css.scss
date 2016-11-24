@@ -30,27 +30,7 @@
   }
 }
 
-.lyric {
-  padding: 1em;
-}
-
-.lyric__title {
-  font-size: 1.5em;
-}
-
-.lyric__chord {
-  position: relative;
-  bottom: 1em;
-  color: blue;
-  width: 0;
-  display: inline-block;
-}
-
-.lyric__block--with-chords {
-  line-height: 2.5;
-}
-
-.lyrics-list {
+.songs-list {
   > li {
     border-bottom: $base-border;
   }
@@ -61,8 +41,28 @@
   }
 }
 
+.song {
+  padding: 1em;
+}
 
-// Song
+.song-controls {
+  @include clearfix;
+  margin-bottom: 1em;
+  text-align: right;
+
+  @include media($medium-screen-up) {
+    float: right;
+  }
+}
+
+.song-edit-control {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.song-title {
+  font-size: 1.5em;
+}
 
 .song-phrase {
   border: none;

@@ -1,4 +1,4 @@
-<ul class="lyrics-list">
+<ul class="songs-list">
   <%= for song <- @songs do %>
     <li><%= link song.name, to: song_path(@conn, :show, song.id) %></li>
   <% end %>

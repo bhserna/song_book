@@ -50,12 +50,9 @@ window.App =
     @$el.removeClass("is-hidden")
 
     if @song.count.chords
-      @$controls.removeClass("is-hidden")
-
       if opts.showChords
         @showControl "hide-chords"
         @hideControl "show-chords"
-
       else
         @showControl "show-chords"
         @hideControl "hide-chords"
@@ -67,13 +64,13 @@ window.App =
     @$controls.find("[data-action='#{control}']").addClass("is-hidden")
 
   onAction: (name, fun) ->
-    $(document).on "click", ".js-lyric-controls [data-action='#{name}']", fun
+    $(document).on "click", ".js-song-controls [data-action='#{name}']", fun
 
 App.onAction "show-chords", -> App.render showChords: true
 App.onAction "hide-chords", -> App.render showChords: false
 
 $ ->
-  $el = $(".js-lyric")
-  $controls = $(".js-lyric-controls")
+  $el = $(".js-song")
+  $controls = $(".js-song-controls")
   App.init $el, $controls
   App.render(showChords: false)
