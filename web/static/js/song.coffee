@@ -12,8 +12,8 @@ show = ($el) ->
 hide = ($el) ->
   $el.addClass("is-hidden")
 
-onAction = (selector, fun) ->
-  $(document).on "click", selector, fun
+onAction = (actionName, fun) ->
+  $(document).on "click", selectorForAction(actionName), fun
 
 selectors =
   song: ".js-song"
@@ -39,12 +39,8 @@ $controlFor = (page, name) ->
 
 init = (page) ->
   render(page, showChords: false)
-
-  onAction selectorForAction("show-chords"), ->
-    render(page, showChords: true)
-
-  onAction selectorForAction("hide-chords"), ->
-    render(page, showChords: false)
+  onAction "show-chords", -> render(page, showChords: true)
+  onAction "hide-chords", -> render(page, showChords: false)
 
 $ ->
   $song = $(selectors.song)
