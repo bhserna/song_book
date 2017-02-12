@@ -141,6 +141,10 @@ defmodule SongBook do
       defstruct [:id, :name]
     end
 
+    defmodule SongToListAssignment do
+      defstruct [:list_id, :song_id]
+    end
+
     def create_list_form do
       struct CreateListForm
     end
@@ -167,6 +171,12 @@ defmodule SongBook do
 
     def all_lists(store) do
       store.all |> Enum.sort_by(&(&1.id), &>=/2)
+    end
+
+    def add_song_to_list(list_id, song_id, store) do
+      SongToListAssignment
+      |> struct(list_id: list_id, song_id: song_id)
+      |> store.insert()
     end
   end
 end

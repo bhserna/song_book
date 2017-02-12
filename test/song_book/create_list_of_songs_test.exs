@@ -9,6 +9,13 @@ defmodule CreateListOfSongsTest do
     end
   end
 
+  defmodule SongToListAssignmentStoreFake do
+    def insert(assignment) do
+      send self, {__MODULE__, :insert, assignment}
+      {:ok, assignment}
+    end
+  end
+
   def create_list_form do
     SongBook.ListOfSongs.create_list_form
   end
@@ -19,6 +26,10 @@ defmodule CreateListOfSongsTest do
 
   def all_lists_of_songs(store) do
     SongBook.ListOfSongs.all_lists(store)
+  end
+
+  def add_song_to_list(list_id, song_id) do
+    SongBook.ListOfSongs.add_song_to_list(list_id, song_id, SongToListAssignmentStoreFake)
   end
 
   test "form to create new list has a name field" do
@@ -68,6 +79,20 @@ defmodule CreateListOfSongsTest do
       assert list_three.name == "Lista 3"
       assert list_two.name == "Lista 2"
       assert list_one.name == "Lista 1"
+    end
+  end
+
+  describe "add song to a list" do
+    test "creates a list assignment in the store" do
+      add_song_to_list("list-1234", "song-1234")
+      assert_received {SongToListAssignmentStoreFake, :insert, %{list_id: "list-1234", song_id: "song-1234"}}
+    end
+  end
+
+  describe "show songs of a list" do
+    test "returns all the songs of a list in the given order" do
+      songs = list_songs("list-1234")
+      assert Enum.count(songs) == 3
     end
   end
 end
