@@ -7,6 +7,16 @@ defmodule SongBook do
     defstruct [:id, :name, :body]
   end
 
+  defmodule Validations do
+    def validate_presence(data, key, message) do
+      if Enum.member?(["", nil], Map.get(data, key)) do
+        %{data | errors: [{key, message}|data.errors]}
+      else
+        data
+      end
+    end
+  end
+
   defmodule Auth do
     def can?(:add_song, state) do
       !!state.logged_in?
@@ -40,6 +50,7 @@ defmodule SongBook do
   end
 
   defmodule SongForm do
+    import Validations
     defstruct [name: "", body: "", errors: []]
 
     def with(name, body) do
@@ -54,14 +65,6 @@ defmodule SongBook do
       form
       |> validate_presence(:name, "El nombre no puede estar en blanco")
       |> validate_presence(:body, "La letra no puede estar en blanco")
-    end
-
-    defp validate_presence(form, key, message) do
-      if Map.get(form, key) == "" do
-        %{form | errors: [{key, message}|form.errors]}
-      else
-        form
-      end
     end
   end
 
@@ -126,6 +129,44 @@ defmodule SongBook do
 
     def watch_song(store, id) do
       store.find(id)
+    end
+  end
+
+  defmodule ListOfSongs do
+    defmodule CreateListForm do
+      defstruct [:name, errors: []]
+    end
+
+    defmodule ListOfSongs do
+      defstruct [:id, :name]
+    end
+
+    def create_list_form do
+      struct CreateListForm
+    end
+
+    def create_list(params, store) do
+      import Validations
+
+      form =
+        create_list_form
+        |> struct(name: params["name"])
+        |> validate_presence(:name, "No puede estar en blanco")
+
+      if Enum.empty?(form.errors) do
+        {:ok, %{id: id}} =
+          ListOfSongs
+          |> struct(Map.from_struct(form))
+          |> store.insert()
+
+        {:ok, id}
+      else
+        {:error, form}
+      end
+    end
+
+    def all_lists(store) do
+      store.all |> Enum.sort_by(&(&1.id), &>=/2)
     end
   end
 end
